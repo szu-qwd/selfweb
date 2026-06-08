@@ -25,6 +25,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // Typewriter effect for name
 const typed = document.getElementById('typed');
+const caret = document.getElementById('caret');
 if (typed) {
   const text = '丘伟栋';
   let i = 0;
@@ -32,8 +33,10 @@ if (typed) {
     if (i <= text.length) {
       typed.textContent = text.slice(0, i);
       i++;
-      setTimeout(tick, 320);
+      setTimeout(tick, 550);
+    } else if (caret) {
+      caret.classList.add('done');
     }
   };
-  setTimeout(tick, 500);
+  setTimeout(tick, 600);
 }
