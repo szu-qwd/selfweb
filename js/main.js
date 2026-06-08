@@ -23,20 +23,36 @@ document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Typewriter effect for name
+// Typewriter effect: type hello line, then name line
 const typed = document.getElementById('typed');
+const typedHello = document.getElementById('typedHello');
 const caret = document.getElementById('caret');
-if (typed) {
-  const text = '丘伟栋';
-  let i = 0;
-  const tick = () => {
-    if (i <= text.length) {
-      typed.textContent = text.slice(0, i);
-      i++;
-      setTimeout(tick, 550);
-    } else if (caret) {
-      caret.classList.add('done');
-    }
+if (typed && typedHello) {
+  const hello = 'hello,我是';
+  const name = '丘伟栋';
+  const speed = 320;
+
+  const typeName = () => {
+    let i = 0;
+    const tick = () => {
+      typed.textContent = name.slice(0, i);
+      if (i < name.length) { i++; setTimeout(tick, speed); }
+      else if (caret) { caret.classList.add('done'); }
+    };
+    tick();
   };
-  setTimeout(tick, 600);
+
+  const typeHello = () => {
+    let i = 0;
+    if (caret) caret.style.display = 'none';
+    typedHello.classList.add('typing');
+    const tick = () => {
+      typedHello.textContent = hello.slice(0, i);
+      if (i < hello.length) { i++; setTimeout(tick, speed); }
+      else { typedHello.classList.remove('typing'); if (caret) caret.style.display = ''; setTimeout(typeName, speed); }
+    };
+    tick();
+  };
+
+  setTimeout(typeHello, 500);
 }
