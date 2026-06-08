@@ -58,36 +58,49 @@ ul { list-style: none; }
   background: radial-gradient(circle, rgba(200, 255, 0, 0.12), transparent 65%);
   pointer-events: none; z-index: -1;
 }
-.hero__greeting { color: var(--accent); font-weight: 600; letter-spacing: 1px; margin-bottom: 16px; }
-.hero__greeting::before { content: "● "; }
-.hero__name { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; color: var(--text-muted); margin-bottom: 20px; }
-.hero__headline {
-  font-size: clamp(72px, 11vw, 150px); font-weight: 800; line-height: 1;
-  letter-spacing: 4px; margin-bottom: 14px; text-align: center;
+.hero__role { color: var(--text-muted); font-size: clamp(15px, 2vw, 19px); letter-spacing: 1px; margin: 28px 0; text-align: center; }
+.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+/* Name grid: rectangle with name as centerpiece, words around it */
+.namegrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "a    b     c"
+    "name name  name"
+    "g    f     d"
+    "g    e     d";
+  gap: 14px 20px;
+  align-items: center;
+  justify-items: center;
+  padding: 36px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(200,255,0,0.08), transparent 60%),
+    var(--bg-soft);
+}
+.ng { font-size: 15px; color: var(--text-muted); }
+.ng--name {
+  grid-area: name; font-size: clamp(56px, 9vw, 110px); font-weight: 800; letter-spacing: 6px;
+  line-height: 1; text-align: center; padding: 8px 0;
   background: linear-gradient(180deg, #fff, #b9b9c4); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-
-/* Hero stage with orbiting tags */
-.hero__stage { position: relative; text-align: center; padding: 80px 90px; min-height: 420px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-.hero__greeting { color: var(--accent); font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; }
-.hero__greeting::before { content: "● "; }
-.hero__role { color: var(--text-muted); font-size: clamp(15px, 2vw, 19px); letter-spacing: 1px; margin-bottom: 28px; }
-.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-.orbit {
-  position: absolute; padding: 7px 16px; border: 1px solid var(--border); border-radius: 999px;
-  font-size: 13px; color: var(--text-muted); background: rgba(22, 22, 31, 0.6); backdrop-filter: blur(4px);
-  white-space: nowrap; animation: float 6s ease-in-out infinite; z-index: 2;
-}
-.orbit--1 { top: 0; left: 0; animation-delay: 0s; }
-.orbit--2 { top: 0; right: 0; animation-delay: 0.8s; }
-.orbit--3 { top: 50%; left: 0; transform: translateY(-50%); color: var(--accent); border-color: var(--accent); animation-delay: 1.6s; }
-.orbit--4 { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 2.4s; }
-.orbit--5 { bottom: 0; left: 0; animation-delay: 3.2s; }
-.orbit--6 { bottom: 0; right: 0; color: var(--accent); border-color: var(--accent); animation-delay: 4s; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-@keyframes floatY { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 12px)); } }
-.orbit--3, .orbit--4 { animation-name: floatY; }
-@media (max-width: 860px) { .orbit { display: none; } .hero__stage { min-height: 0; padding: 20px 0; } }
+.ng--stroke { font-size: 22px; font-weight: 800; letter-spacing: 1px; color: transparent; -webkit-text-stroke: 1px var(--text-muted); }
+.ng--accent { color: var(--accent); font-weight: 700; }
+.ng--dim { color: var(--text-muted); }
+.ng--vert { writing-mode: vertical-rl; letter-spacing: 3px; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.ng--stroke, .ng--accent, .ng--dim, .ng--vert { animation: float 6s ease-in-out infinite; }
+.ng--name { animation: none; }
+[style*="grid-area:b"] { animation-delay: .6s; }
+[style*="grid-area:c"] { animation-delay: 1.2s; }
+[style*="grid-area:d"] { animation-delay: 1.8s; }
+[style*="grid-area:e"] { animation-delay: 2.4s; }
+[style*="grid-area:f"] { animation-delay: 3s; }
+[style*="grid-area:g"] { animation-delay: 3.6s; }
+@media (max-width: 860px) { .namegrid { padding: 24px; gap: 10px; } .ng--vert { writing-mode: horizontal-tb; } }
 .hero__headline .stroke {
   color: transparent; -webkit-text-stroke: 1.5px var(--text-muted);
 }
