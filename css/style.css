@@ -60,12 +60,32 @@ ul { list-style: none; }
 }
 .hero__greeting { color: var(--accent); font-weight: 600; letter-spacing: 1px; margin-bottom: 16px; }
 .hero__greeting::before { content: "● "; }
-.hero__name { font-size: clamp(28px, 4vw, 40px); font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
-.hero__realname { font-size: clamp(44px, 6vw, 72px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+.hero__name { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; color: var(--text-muted); margin-bottom: 20px; }
 .hero__headline {
-  font-size: clamp(48px, 7vw, 96px); font-weight: 800; line-height: 0.95;
-  letter-spacing: -2px; text-transform: uppercase; margin-bottom: 28px;
+  font-size: clamp(72px, 11vw, 150px); font-weight: 800; line-height: 1;
+  letter-spacing: 4px; margin-bottom: 14px; text-align: center;
+  background: linear-gradient(180deg, #fff, #b9b9c4); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
+
+/* Hero stage with orbiting tags */
+.hero__stage { position: relative; text-align: center; padding: 40px 0; }
+.hero__greeting { color: var(--accent); font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; }
+.hero__greeting::before { content: "● "; }
+.hero__role { color: var(--text-muted); font-size: clamp(15px, 2vw, 19px); letter-spacing: 1px; margin-bottom: 28px; }
+.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.orbit {
+  position: absolute; padding: 7px 16px; border: 1px solid var(--border); border-radius: 999px;
+  font-size: 13px; color: var(--text-muted); background: rgba(22, 22, 31, 0.6); backdrop-filter: blur(4px);
+  white-space: nowrap; animation: float 6s ease-in-out infinite;
+}
+.orbit--1 { top: 4%; left: 6%; animation-delay: 0s; }
+.orbit--2 { top: 0; right: 8%; animation-delay: 0.8s; }
+.orbit--3 { top: 42%; left: -2%; color: var(--accent); border-color: var(--accent); animation-delay: 1.6s; }
+.orbit--4 { top: 46%; right: -2%; animation-delay: 2.4s; }
+.orbit--5 { bottom: 6%; left: 10%; animation-delay: 3.2s; }
+.orbit--6 { bottom: 2%; right: 6%; color: var(--accent); border-color: var(--accent); animation-delay: 4s; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@media (max-width: 860px) { .orbit { display: none; } }
 .hero__headline .stroke {
   color: transparent; -webkit-text-stroke: 1.5px var(--text-muted);
 }
