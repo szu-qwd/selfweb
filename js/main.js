@@ -30,7 +30,7 @@ const caret = document.getElementById('caret');
 if (typed && typedHello) {
   const hello = 'hello,我是';
   const name = '丘伟栋';
-  const speed = 320;
+  const speed = 180;
 
   const typeName = () => {
     let i = 0;
