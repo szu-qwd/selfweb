@@ -49,7 +49,7 @@ ul { list-style: none; }
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 0;
   background: var(--accent); transition: height 0.3s ease; z-index: 0;
 }
-.nav__card:hover { color: #0b0b0f; }
+.nav__card:hover, .nav__card.active:hover { color: #0b0b0f; }
 .nav__card:hover::before { height: 100%; }
 .nav__card.active { color: var(--accent); }
 .nav__card.active span::after {
