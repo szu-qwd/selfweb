@@ -22,3 +22,18 @@ document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Typewriter effect for name
+const typed = document.getElementById('typed');
+if (typed) {
+  const text = '丘伟栋';
+  let i = 0;
+  const tick = () => {
+    if (i <= text.length) {
+      typed.textContent = text.slice(0, i);
+      i++;
+      setTimeout(tick, 320);
+    }
+  };
+  setTimeout(tick, 500);
+}
