@@ -6,6 +6,23 @@ menu.querySelectorAll('a').forEach((link) =>
   link.addEventListener('click', () => menu.classList.remove('is-open'))
 );
 
+// Scrollspy: highlight active nav card
+const cards = Array.from(document.querySelectorAll('.nav__card'));
+const spy = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        cards.forEach((c) => c.classList.toggle('active', c.dataset.target === e.target.id));
+      }
+    });
+  },
+  { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+);
+cards.forEach((c) => {
+  const sec = document.getElementById(c.dataset.target);
+  if (sec) spy.observe(sec);
+});
+
 // Scroll reveal
 const io = new IntersectionObserver(
   (entries) => {
