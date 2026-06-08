@@ -68,7 +68,7 @@ ul { list-style: none; }
 }
 
 /* Hero stage with orbiting tags */
-.hero__stage { position: relative; text-align: center; padding: 70px 0; min-height: 460px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.hero__stage { position: relative; text-align: center; padding: 80px 90px; min-height: 420px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .hero__greeting { color: var(--accent); font-weight: 600; letter-spacing: 1px; margin-bottom: 6px; }
 .hero__greeting::before { content: "● "; }
 .hero__role { color: var(--text-muted); font-size: clamp(15px, 2vw, 19px); letter-spacing: 1px; margin-bottom: 28px; }
@@ -78,13 +78,15 @@ ul { list-style: none; }
   font-size: 13px; color: var(--text-muted); background: rgba(22, 22, 31, 0.6); backdrop-filter: blur(4px);
   white-space: nowrap; animation: float 6s ease-in-out infinite; z-index: 2;
 }
-.orbit--1 { top: 6%; left: 4%; animation-delay: 0s; }
-.orbit--2 { top: 2%; right: 4%; animation-delay: 0.8s; }
-.orbit--3 { top: 44%; left: 0; color: var(--accent); border-color: var(--accent); animation-delay: 1.6s; }
-.orbit--4 { top: 50%; right: 0; animation-delay: 2.4s; }
-.orbit--5 { bottom: 8%; left: 8%; animation-delay: 3.2s; }
-.orbit--6 { bottom: 4%; right: 6%; color: var(--accent); border-color: var(--accent); animation-delay: 4s; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.orbit--1 { top: 0; left: 0; animation-delay: 0s; }
+.orbit--2 { top: 0; right: 0; animation-delay: 0.8s; }
+.orbit--3 { top: 50%; left: 0; transform: translateY(-50%); color: var(--accent); border-color: var(--accent); animation-delay: 1.6s; }
+.orbit--4 { top: 50%; right: 0; transform: translateY(-50%); animation-delay: 2.4s; }
+.orbit--5 { bottom: 0; left: 0; animation-delay: 3.2s; }
+.orbit--6 { bottom: 0; right: 0; color: var(--accent); border-color: var(--accent); animation-delay: 4s; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes floatY { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 12px)); } }
+.orbit--3, .orbit--4 { animation-name: floatY; }
 @media (max-width: 860px) { .orbit { display: none; } .hero__stage { min-height: 0; padding: 20px 0; } }
 .hero__headline .stroke {
   color: transparent; -webkit-text-stroke: 1.5px var(--text-muted);
