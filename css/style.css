@@ -118,6 +118,18 @@ ul { list-style: none; }
 .exp__company { color: var(--accent); margin-bottom: 10px; }
 .exp__desc { color: var(--text-muted); font-size: 15px; }
 
+/* ===== Papers ===== */
+.papers { border-top: 1px solid var(--border); }
+.paper { display: grid; grid-template-columns: 40px 1fr auto; gap: 20px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.25s; }
+.paper:hover { padding-left: 12px; }
+.paper__idx { color: var(--accent); font-weight: 800; font-size: 20px; }
+.paper__title { font-size: 17px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+.paper__meta { color: var(--text-muted); font-size: 14px; }
+.paper__role { color: var(--accent); }
+.paper__badge { white-space: nowrap; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); height: fit-content; }
+.paper__badge.is-accepted { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 760px) { .paper { grid-template-columns: 1fr; gap: 8px; } .paper__badge { justify-self: start; } }
+
 /* ===== Tools ===== */
 .tools { display: flex; flex-wrap: wrap; gap: 12px; }
 .tools li { padding: 10px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; font-size: 15px; color: var(--text-muted); }
