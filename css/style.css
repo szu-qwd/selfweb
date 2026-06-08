@@ -64,7 +64,7 @@ ul { list-style: none; }
 /* Poster: invisible rectangle, words fill edges, name centered */
 .poster {
   display: flex; flex-direction: column; justify-content: space-between;
-  min-height: 460px; padding: 8px 4px; gap: 18px;
+  min-height: 420px; padding: 8px 4px; gap: 10px;
   text-transform: uppercase; line-height: 1;
   min-width: 0; max-width: 100%; overflow: hidden;
 }
