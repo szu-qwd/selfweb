@@ -64,10 +64,12 @@ ul { list-style: none; }
 /* Poster: invisible rectangle, words fill edges, name centered */
 .poster {
   display: flex; flex-direction: column; justify-content: space-between;
-  min-height: 420px; padding: 8px 4px; gap: 10px;
+  min-height: 420px; padding: 8px 4px 28px; gap: 10px;
   text-transform: uppercase; line-height: 1;
   min-width: 0; max-width: 100%; overflow: hidden;
+  border-bottom: 1px solid var(--border);
 }
+.hero__intro { margin: 28px 0; color: var(--text-muted); font-size: clamp(15px, 1.6vw, 17px); line-height: 2; }
 .poster__row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-width: 0; }
 .poster__row--sub { padding: 0 8%; }
 .poster__mid { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
