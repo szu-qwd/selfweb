@@ -128,7 +128,7 @@ ul { list-style: none; }
 
 /* ===== Papers ===== */
 .papers { border-top: 1px solid var(--border); }
-.paper { display: grid; grid-template-columns: 40px 1fr auto; gap: 20px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.25s; }
+.paper { display: grid; grid-template-columns: 40px 1fr; gap: 20px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.25s; }
 .paper:hover { padding-left: 12px; }
 .paper__idx { color: var(--accent); font-weight: 800; font-size: 20px; }
 .paper__title { font-size: 17px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
