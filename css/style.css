@@ -72,13 +72,15 @@ ul { list-style: none; }
 .poster__row--sub { padding: 0 8%; }
 .poster__mid { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
 .poster__name {
-  display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; min-width: 0;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px; flex: 1; min-width: 0;
   font-size: clamp(48px, 8vw, 104px); font-weight: 800; letter-spacing: 3px; line-height: 0.9;
-  text-align: center; white-space: nowrap;
+  text-align: left; white-space: nowrap;
   background: linear-gradient(180deg, #fff, #9a9aa6); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .poster__hello { font-size: clamp(18px, 2.6vw, 32px); font-weight: 600; letter-spacing: 2px; color: var(--accent); -webkit-text-fill-color: var(--accent); }
+.poster__line { display: inline-flex; align-items: baseline; }
 .type__caret { font-weight: 400; -webkit-text-fill-color: var(--accent); color: var(--accent); animation: blink 1s step-end infinite; }
+.type__caret.done { display: none; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .w { color: var(--text-muted); font-weight: 600; letter-spacing: 1px; }
 .w--accent { color: var(--accent); font-weight: 700; }
