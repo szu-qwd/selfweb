@@ -1,19 +1,24 @@
 // Mobile menu toggle
 const toggle = document.getElementById('navToggle');
 const menu = document.getElementById('navMenu');
+toggle.addEventListener('click', () => menu.classList.toggle('is-open'));
+menu.querySelectorAll('a').forEach((link) =>
+  link.addEventListener('click', () => menu.classList.remove('is-open'))
+);
 
-toggle.addEventListener('click', () => {
-  const isOpen = menu.classList.toggle('is-open');
-  toggle.setAttribute('aria-expanded', String(isOpen));
-});
+// Scroll reveal
+const io = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-// Close menu after clicking a link (mobile)
-menu.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    menu.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-  });
-});
-
-// Current year in footer
+// Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
