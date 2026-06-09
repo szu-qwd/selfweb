@@ -70,57 +70,6 @@
       </div>
     </section>
 
-    <!-- Stats -->
-    <section class="container">
-      <div class="stats reveal">
-        <div class="stat"><div class="stat__num"><span>+</span>5</div><div class="stat__label">论文(一作 / 合作)</div></div>
-        <div class="stat"><div class="stat__num"><span>+</span>4</div><div class="stat__label">核心研究课题</div></div>
-        <div class="stat"><div class="stat__num"><span>×</span>148</div><div class="stat__label">端侧推理加速</div></div>
-      </div>
-    </section>
-
-    <!-- Research / Projects -->
-    <section class="section" id="research">
-      <div class="container">
-        <p class="section__eyebrow reveal">Research</p>
-        <h2 class="section__title reveal">研究课题</h2>
-        <div class="projects">
-          <article class="card reveal">
-            <div class="card__thumb">01</div>
-            <div class="card__body">
-              <h3 class="card__title">FLP-Net 深海图像增强</h3>
-              <p class="card__desc">面向深海弱光与强散射退化,傅里叶域振幅校正 + 空间域多尺度恢复,使 YOLO 检测 mAP 仅比清晰图低约 0.5%。</p>
-              <div class="card__tags"><span>傅里叶域</span><span>轻量化</span><span>YOLO</span></div>
-            </div>
-          </article>
-          <article class="card reveal">
-            <div class="card__thumb">02</div>
-            <div class="card__body">
-              <h3 class="card__title">IEUOD 增强引导检测</h3>
-              <p class="card__desc">浅层特征引导模块对齐检测器底层特征,抑制增强伪影,URPC 基准 mAP 从约 41.9% 提升至 43.5%,计算量不增。</p>
-              <div class="card__tags"><span>目标检测</span><span>ICASSP</span><span>特征对齐</span></div>
-            </div>
-          </article>
-          <article class="card reveal">
-            <div class="card__thumb">03</div>
-            <div class="card__body">
-              <h3 class="card__title">CITG 级联增强范式</h3>
-              <p class="card__desc">场景信息 + 任务引导的二阶段级联,双对抗 GAN 与检测反馈,URPC 指标领先约 2.17%–24.62%,信息熵提升约 17.49%。</p>
-              <div class="card__tags"><span>级联增强</span><span>GAN</span><span>CCHI</span></div>
-            </div>
-          </article>
-          <article class="card reveal">
-            <div class="card__thumb">04</div>
-            <div class="card__body">
-              <h3 class="card__title">HED 引导结构一致扩散</h3>
-              <p class="card__desc">针对水下配对数据稀缺,用 HED 约束解空间生成 image+mask 配对,保证复杂拓扑的语义与结构一致性。</p>
-              <div class="card__tags"><span>扩散模型</span><span>数据生成</span><span>分割</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- Papers -->
     <section class="section section--alt" id="papers">
       <div class="container">
@@ -166,30 +115,91 @@
       </div>
     </section>
 
-    <!-- Experience / Education -->
+    <!-- Experience -->
     <section class="section" id="experience">
       <div class="container">
-        <p class="section__eyebrow reveal">Experience &amp; Education</p>
-        <h2 class="section__title reveal">经历</h2>
+        <p class="section__eyebrow reveal">Experience</p>
+        <h2 class="section__title reveal">工作经历</h2>
         <div class="exp">
           <div class="exp__item reveal">
             <div class="exp__year">2026.02 — 至今</div>
-            <div><h3 class="exp__role">深度学习算法实习生</h3><p class="exp__company">影石创新科技股份有限公司 · 研究院中心</p><p class="exp__desc">全景视线估计与关键区域提取;模型轻量化与端侧推理优化,推理速度提升约 148 倍,移动端延迟降至约 17 ms。</p></div>
-          </div>
-          <div class="exp__item reveal">
-            <div class="exp__year">2024.06 — 2027.06</div>
-            <div><h3 class="exp__role">硕士 · 控制工程</h3><p class="exp__company">深圳大学 · 机电与控制工程学院</p><p class="exp__desc">研究方向:水下视觉增强、目标检测、端侧部署优化。</p></div>
-          </div>
-          <div class="exp__item reveal">
-            <div class="exp__year">2020.09 — 2024.06</div>
-            <div><h3 class="exp__role">本科 · 机械设计制造及其自动化</h3><p class="exp__company">深圳大学</p><p class="exp__desc">CET-6;研究生二等奖学金;优秀学生干部。</p></div>
+            <div>
+              <h3 class="exp__role">深度学习算法实习生</h3>
+              <p class="exp__company">影石创新科技股份有限公司 · 研究院中心</p>
+              <p class="exp__desc">项目背景：针对全景图像/视频在移动端展示中存在信息冗余、用户关注区域不明确的问题，基于人眼注视点（Gaze）能有效反映视觉注意力的特性，开展全景视线估计与关键区域提取研究。</p>
+              <ul class="exp__list">
+                <li>负责全景视线估计模型的设计与优化，探索从全景数据到 2D 视角映射的注意力建模方法</li>
+                <li>主导数据采集方案设计，补足多场景、多视角下的训练数据，提升模型泛化能力</li>
+                <li>针对移动端部署需求，进行模型轻量化与推理优化（模型裁剪 / 量化 / 结构优化等）</li>
+                <li>与业务团队及数据采集团队协作，梳理实际应用需求，推动算法与业务场景对齐</li>
+              </ul>
+              <p class="exp__desc">成果：模型推理速度提升 148 倍，移动端延迟降低至 17 ms；MAC 降低至 353M，Params 降低至 7M 级；支持步行类、骑行类场景落地应用。</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Research / Projects -->
+    <section class="section section--alt" id="research">
+      <div class="container">
+        <p class="section__eyebrow reveal">Research</p>
+        <h2 class="section__title reveal">研究课题</h2>
+        <div class="rprojects">
+          <article class="rproject reveal">
+            <div class="rproject__head">
+              <span class="rproject__idx">01</span>
+              <h3 class="rproject__title">FLP-Net 轻量级水下图像增强模型</h3>
+              <span class="rproject__time">2025-03 / 2025-06</span>
+            </div>
+            <div class="rproject__cols">
+              <div class="rcol"><span class="rcol__label">问题导向</span><p>深海水下机器人在极端弱光与强散射下，图像严重退化，下游目标检测性能下降。</p></div>
+              <div class="rcol"><span class="rcol__label">解决方案</span><p>任务定制化 Transformer 模块 + 轻量级混合域增强：傅里叶域选择性振幅校正改善全局昏暗，空间域多尺度深度可分离卷积恢复细节，并引入感知特征约束保留检测语义。</p></div>
+              <div class="rcol"><span class="rcol__label">量化指标</span><p>图像评价指标最优；YOLO 检测器 mAP 仅比原始清晰图像低 0.5%（其他方法下降 3%–5%），满足水下平台低功耗、高实时性。</p></div>
+            </div>
+          </article>
+          <article class="rproject reveal">
+            <div class="rproject__head">
+              <span class="rproject__idx">02</span>
+              <h3 class="rproject__title">IEUOD：增强图像引导下游目标检测范式</h3>
+              <span class="rproject__time">2025-06 / 2025-09</span>
+            </div>
+            <div class="rproject__cols">
+              <div class="rcol"><span class="rcol__label">问题导向</span><p>以人类视觉为目标的水下图像增强会使下游检测产生伪影失真，导致 mAP 下降 3%–5%。</p></div>
+              <div class="rcol"><span class="rcol__label">解决方案</span><p>提出增强图像引导下游检测范式，维持实时性；设计浅层特征引导模块，训练中让检测器底层特征向增强图像同层特征对齐，实现细节恢复与噪声抑制，而不改变高层语义。</p></div>
+              <div class="rcol"><span class="rcol__label">量化指标</span><p>URPC 基准上 mAP 从 41.9% 提升至 43.5%；对 CNN / Transformer / ViT 等多种检测器稳定提升；计算量与参数量零增加，推理速度不变。</p></div>
+            </div>
+          </article>
+          <article class="rproject reveal">
+            <div class="rproject__head">
+              <span class="rproject__idx">03</span>
+              <h3 class="rproject__title">CITG：面向水下视觉任务的级联式图像增强新范式</h3>
+              <span class="rproject__time">2025-08 / 2025-10</span>
+            </div>
+            <div class="rproject__cols">
+              <div class="rcol"><span class="rcol__label">问题导向</span><p>现有水下增强严重依赖理想先验、泛化差（Model-based）；或引入伪影失真、缺少真实数据（Learning-based）。</p></div>
+              <div class="rcol"><span class="rcol__label">解决方案</span><p>提出“场景信息 + 任务引导”二阶段级联范式：阶段一多尺度融合模型初步恢复并建立物理约束，阶段二结合双对抗 GAN 对比学习与检测任务感知反馈，用检测器梯度引导恢复。</p></div>
+              <div class="rcol"><span class="rcol__label">量化指标</span><p>URPC 数据集指标领先其他方法 2.17%–24.62%；RGB 三通道比例趋近 1:1:1；边缘检测目标轮廓恢复最完整清晰，平均信息熵提升 17.49%。</p></div>
+            </div>
+          </article>
+          <article class="rproject reveal">
+            <div class="rproject__head">
+              <span class="rproject__idx">04</span>
+              <h3 class="rproject__title">基于 HED 引导的结构一致扩散模型</h3>
+              <span class="rproject__time">2025-09 / 至今</span>
+            </div>
+            <div class="rproject__cols">
+              <div class="rcol"><span class="rcol__label">问题导向</span><p>下游任务依赖数据，但水下数据集稀缺，从源头限制了下游任务性能的提升。</p></div>
+              <div class="rcol"><span class="rcol__label">解决方案</span><p>针对 image+mask 配对生成，文本在空间维度过于稀疏、难以覆盖像素级坐标相关性；利用 HED 限制解空间，实现复杂拓扑与多关节目标的语义和结构一致性。</p></div>
+              <div class="rcol"><span class="rcol__label">最终目标</span><p>设计基于 HED 引导的结构与语义一致扩散模型，生成高质量水下配对数据集（image+mask），从源头提升水下图像分割任务性能。</p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- Skills -->
-    <section class="section section--alt" id="skills">
+    <section class="section" id="skills">
       <div class="container">
         <p class="section__eyebrow reveal">Skills</p>
         <h2 class="section__title reveal">能力概要</h2>
