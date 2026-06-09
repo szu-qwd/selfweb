@@ -246,3 +246,21 @@ ul { list-style: none; }
   pointer-events: none; -webkit-user-drag: none;
 }
 @media (max-width: 768px) { #pet { width: 110px; height: 110px; right: 12px; bottom: 12px; } }
+
+/* speech bubble */
+.pet-bubble {
+  position: absolute; bottom: calc(100% + 10px); right: 0;
+  max-width: 220px; width: max-content;
+  padding: 10px 14px; border-radius: 14px;
+  background: var(--accent, #c8ff00); color: #0b0b0f;
+  font-size: 13px; line-height: 1.5; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0; transform: translateY(6px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none; white-space: normal;
+}
+.pet-bubble.show { opacity: 1; transform: none; }
+.pet-bubble::after {
+  content: ''; position: absolute; top: 100%; right: 28px;
+  border: 7px solid transparent; border-top-color: var(--accent, #c8ff00);
+}
