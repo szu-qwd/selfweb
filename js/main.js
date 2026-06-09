@@ -6,6 +6,9 @@ menu.querySelectorAll('a').forEach((link) =>
   link.addEventListener('click', () => menu.classList.remove('is-open'))
 );
 
+// Keep browser scroll restoration on (refresh returns to last viewed position)
+if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
+
 // Scrollspy: highlight active nav card
 const cards = Array.from(document.querySelectorAll('.nav__card'));
 const spy = new IntersectionObserver(
@@ -21,7 +24,27 @@ const spy = new IntersectionObserver(
 cards.forEach((c) => {
   const sec = document.getElementById(c.dataset.target);
   if (sec) spy.observe(sec);
+  // Smooth-scroll without leaving a #hash in the URL, so refresh
+  // restores the last scrolled position instead of jumping to the anchor.
+  c.addEventListener('click', (e) => {
+    e.preventDefault();
+    menu.classList.remove('is-open');
+    if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+    history.replaceState(null, '', location.pathname + location.search);
+  });
 });
+
+// If the page was opened with a #hash, jump once then strip it so future
+// refreshes use scroll-position restoration.
+if (location.hash) {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target) {
+    requestAnimationFrame(() => {
+      target.scrollIntoView();
+      history.replaceState(null, '', location.pathname + location.search);
+    });
+  }
+}
 
 // Scroll reveal
 const io = new IntersectionObserver(
