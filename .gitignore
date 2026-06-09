@@ -1,0 +1,9 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+
+# Tooling
+.claude/
+
+# Deploy artifacts
+selfweb-deploy.zip
