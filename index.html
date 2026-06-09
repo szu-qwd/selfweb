@@ -15,10 +15,11 @@
     <div class="container nav__inner">
       <button class="nav__toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
       <nav class="nav__menu" id="navMenu">
-        <a href="#hero" class="nav__card" data-target="hero"><span>首页</span></a>
-        <a href="#research" class="nav__card" data-target="research"><span>研究</span></a>
-        <a href="#papers" class="nav__card" data-target="papers"><span>论文</span></a>
-        <a href="#experience" class="nav__card" data-target="experience"><span>经历</span></a>
+        <a href="#hero" class="nav__card" data-target="hero"><span>个人简介</span></a>
+        <a href="#papers" class="nav__card" data-target="papers"><span>成果展示</span></a>
+        <a href="#experience" class="nav__card" data-target="experience"><span>工作经历</span></a>
+        <a href="#research" class="nav__card" data-target="research"><span>研究课题</span></a>
+        <a href="#skills" class="nav__card" data-target="skills"><span>能力概要</span></a>
         <a href="#contact" class="nav__card" data-target="contact"><span>联系</span></a>
       </nav>
     </div>
@@ -76,7 +77,7 @@
     <section class="section section--alt" id="papers">
       <div class="container">
         <p class="section__eyebrow reveal">Publications</p>
-        <h2 class="section__title reveal">论文与发表</h2>
+        <h2 class="section__title reveal">成果展示</h2>
         <div class="papers">
           <div class="paper reveal">
             <div class="paper__idx">01</div>
@@ -128,14 +129,13 @@
             <div>
               <h3 class="exp__role">深度学习算法实习生</h3>
               <p class="exp__company">影石创新科技股份有限公司 · 研究院中心</p>
-              <p class="exp__desc">项目背景：针对全景图像/视频在移动端展示中存在信息冗余、用户关注区域不明确的问题，基于人眼注视点（Gaze）能有效反映视觉注意力的特性，开展全景视线估计与关键区域提取研究。</p>
+              <p class="exp__desc">项目背景：全景图像/视频在展示中存在信息冗余、用户关注区域不明确的问题，人眼注视点（Gaze）能够有效反映视觉注意力的特性。</p>
               <ul class="exp__list">
-                <li>负责全景视线估计模型的设计与优化，探索从全景数据到 2D 视角映射的注意力建模方法</li>
-                <li>主导数据采集方案设计，补足多场景、多视角下的训练数据，提升模型泛化能力</li>
-                <li>针对移动端部署需求，进行模型轻量化与推理优化（模型裁剪 / 量化 / 结构优化等）</li>
-                <li>与业务团队及数据采集团队协作，梳理实际应用需求，推动算法与业务场景对齐</li>
+                <li>数据采集方案设计，补足多场景、多视角下的训练数据，提升泛化；建立真值产线，补足数据飞轮</li>
+                <li>全景视线估计模型的设计与优化，探索全景数据的专项处理和分支改进</li>
+                <li>针对移动端部署需求，进行模型轻量化与推理优化（如线性注意力、QAT 训练、功耗测速等）</li>
               </ul>
-              <p class="exp__desc">成果：模型推理速度提升 148 倍，移动端延迟降低至 17 ms；MAC 降低至 353M，Params 降低至 7M 级；支持步行类、骑行类场景落地应用。</p>
+              <p class="exp__desc">量化成果：模型功耗/测速降低至 3.03 ms / 166 mW；MAC 降低至 353M，Params 降低至 7.9M；指标提高 35%，泛用场景机位（手持 → 手持/背包夹/脖挂/骑行/侧身/过头）。</p>
             </div>
           </div>
         </div>
