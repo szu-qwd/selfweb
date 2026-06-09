@@ -98,19 +98,23 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
         }, LOOP_ACT_DURATION);
       }
     }
-    // Take a short stroll: play walk animation while translating the pet,
-    // then glide back to rest position and return to idle.
+    // Take a short stroll: walk out in one direction, then turn around and walk
+    // back, with the facing always matching the movement direction.
     function doWalk() {
       const dir = Math.random() < 0.5 ? -1 : 1; // -1 left, +1 right
       const dist = 80 + Math.random() * 80;     // 80-160px
-      player.play(dir < 0 ? 'walk_left' : 'walk_right');
+      const faceOut = dir < 0 ? 'walk_left' : 'walk_right';
+      const faceBack = dir < 0 ? 'walk_right' : 'walk_left';
+      player.play(faceOut);                                  // walk out
       el.style.transition = 'transform ' + WALK_DURATION + 'ms linear';
       el.style.transform = 'translateX(' + (dir * dist) + 'px)';
       actTimer = setTimeout(function () {
-        el.style.transform = 'translateX(0)';   // glide back
+        if (!isWalking()) return;            // interrupted (clicked/dragged)
+        player.play(faceBack);               // turn around to face the way back
+        el.style.transform = 'translateX(0)';
         actTimer = setTimeout(function () {
           el.style.transition = '';
-          if (player.state === 'walk_left' || player.state === 'walk_right') player.play('idle');
+          if (isWalking()) player.play('idle');
         }, WALK_DURATION);
       }, WALK_DURATION);
     }
