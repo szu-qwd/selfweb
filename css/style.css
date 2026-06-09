@@ -247,20 +247,28 @@ ul { list-style: none; }
 }
 @media (max-width: 768px) { #pet { width: 110px; height: 110px; right: 12px; bottom: 12px; } }
 
-/* speech bubble */
+/* speech bubble — cloud style */
 .pet-bubble {
-  position: absolute; bottom: calc(100% + 10px); right: 0;
-  max-width: 220px; width: max-content;
-  padding: 10px 14px; border-radius: 14px;
-  background: var(--accent, #c8ff00); color: #0b0b0f;
+  position: absolute; bottom: calc(100% + 16px); right: 0;
+  max-width: 220px; width: max-content; min-width: calc(4em + 32px);
+  padding: 12px 16px;
+  background: #ffffff; color: #2a2a32;
   font-size: 13px; line-height: 1.5; font-weight: 500;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
   opacity: 0; transform: translateY(6px) scale(0.96);
   transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none; white-space: normal;
 }
 .pet-bubble.show { opacity: 1; transform: none; }
+/* cloud bumps along the top edge */
+.pet-bubble::before {
+  content: ''; position: absolute; left: 14px; right: 14px; top: -9px; height: 22px;
+  background: #ffffff; border-radius: 50%;
+}
+/* trailing dots pointing down to the pet */
 .pet-bubble::after {
-  content: ''; position: absolute; top: 100%; right: 28px;
-  border: 7px solid transparent; border-top-color: var(--accent, #c8ff00);
+  content: ''; position: absolute; top: calc(100% - 4px); right: 26px;
+  width: 12px; height: 12px; background: #ffffff; border-radius: 50%;
+  box-shadow: -10px 8px 0 -3px #ffffff, -18px 14px 0 -5px #ffffff;
 }

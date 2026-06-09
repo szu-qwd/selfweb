@@ -68,41 +68,67 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       img.src = preload(state)[idx].src;
     }
 
-    // ===== Idle behaviours: auto-sleep + random small actions =====
-    const SLEEP_AFTER = 15000;            // ms of idle before dozing off
-    const ACT_MIN = 18000, ACT_MAX = 36000; // random small-action interval
-    let idleTimer = null, actTimer = null;
+    // ===== Idle behaviours =====
+    // While idling, every 10-20s pick a behaviour with equal odds: any state in
+    // manifest.idleActs (sleep/crawl/dance/amuse/yawn) plus "speak" (bubble only).
+    // Sleep may wake on its own after ~15s.
+    const IDLE_MIN = 10000, IDLE_MAX = 20000; // ms between idle behaviours
+    const SLEEP_WAKE_AFTER = 15000;           // ms before sleep may self-wake
+    const SLEEP_WAKE_CHANCE = 0.5;            // probability of self-waking each check
+    const LOOP_ACT_DURATION = 5000;           // looping idle actions (e.g. crawl) last ~5s
+    let idleTimer = null, sleepTimer = null, actTimer = null;
 
-    // states that count as "resting idle" and may schedule idle behaviours
     function scheduleIdle() {
       clearIdle();
-      idleTimer = setTimeout(function () { player.play('sleep'); }, SLEEP_AFTER);
-      actTimer = setTimeout(function () {
-        const acts = manifest.idleActs || [];
-        if (acts.length) player.play(acts[Math.floor(Math.random() * acts.length)]);
-      }, ACT_MIN + Math.random() * (ACT_MAX - ACT_MIN));
+      const wait = IDLE_MIN + Math.random() * (IDLE_MAX - IDLE_MIN);
+      idleTimer = setTimeout(doIdleAction, wait);
+    }
+    function doIdleAction() {
+      const acts = (manifest.idleActs || []).filter(hasState);
+      const pool = acts.concat(['__speak__']); // speak is an extra equal-odds option
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      if (pick === '__speak__') { say(pickLine()); scheduleIdle(); return; } // stay idle
+      player.play(pick);
+      // looping actions other than sleep need a timer to return to idle
+      if (pick !== 'sleep' && manifest[pick].loop) {
+        actTimer = setTimeout(function () {
+          if (player.state === pick) player.play('idle');
+        }, LOOP_ACT_DURATION);
+      }
+    }
+    function armSleepWake() {
+      if (sleepTimer) clearTimeout(sleepTimer);
+      sleepTimer = setTimeout(function check() {
+        if (player.state !== 'sleep') return;        // already woken by user
+        if (Math.random() < SLEEP_WAKE_CHANCE) player.play('idle');
+        else sleepTimer = setTimeout(check, SLEEP_WAKE_AFTER); // try again later
+      }, SLEEP_WAKE_AFTER);
     }
     function clearIdle() {
       if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      if (sleepTimer) { clearTimeout(sleepTimer); sleepTimer = null; }
       if (actTimer) { clearTimeout(actTimer); actTimer = null; }
     }
+    function hasState(s) { return manifest[s] && manifest[s].frames.length > 0; }
 
     const player = window.PetEngine.createPlayer(manifest, render, null, null, function (state) {
-      // onState: arm idle behaviours only while truly idling
+      // onState: arm idle scheduling only while idling; arm self-wake while sleeping
       if (state === 'idle') scheduleIdle();
-      else clearIdle();
+      else { clearIdle(); if (state === 'sleep') armSleepWake(); }
     });
     window.__pet = player;
 
     // ===== Speech bubble =====
     const LINES = [
-      '你好呀~ 我是这个网站的小助手',
-      '往上翻翻,看看我的研究课题吧 🔬',
-      '想了解论文?都在「论文与发表」那一栏',
-      '对水下视觉、目标检测感兴趣吗?',
-      '想合作的话,点页面底部联系我哦 ✉️',
-      '摸摸我没关系,我不怕痒~',
-      '把我拖到喜欢的位置吧!',
+      '今天吃啥?',
+      '什么时候下班',
+      '我要去摸鱼了',
+      '求求你给我个班上吧',
+      '你好!',
+      '好好学习,天天向上!',
+      '我无法只是~普通朋友~~',
+      '再摸要秃了!',
+      '好吗?好的!',
     ];
     let bubble = null, bubbleTimer = null;
     function say(text) {
@@ -118,28 +144,28 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     }
     let lineIdx = 0;
     function pickLine() {
-      // first click greets, then cycle through guidance lines
-      const t = LINES[lineIdx % LINES.length];
-      lineIdx++;
-      return t;
+      // random line, avoiding an immediate repeat of the previous one
+      let i = Math.floor(Math.random() * LINES.length);
+      if (LINES.length > 1 && i === lineIdx) i = (i + 1) % LINES.length;
+      lineIdx = i;
+      return LINES[i];
     }
 
-    // wake from any non-interactive resting state back to idle
-    function wake() {
-      if (player.state === 'sleep' || (manifest.idleActs || []).indexOf(player.state) >= 0) {
-        player.play('idle');
-      }
+    // a "resting" state can be woken by a click (sleep + any idle action)
+    function isResting() {
+      return player.state === 'sleep' || (manifest.idleActs || []).indexOf(player.state) >= 0;
     }
 
     preload('idle');
     player.play('startup'); // play once -> auto idle
 
-    // ===== Interaction: hover=touch, click=pinch, drag=raise =====
-    let dragging = false, moved = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    // ===== Interaction: hover=touch, click=pinch/wake, drag=raise =====
+    let dragging = false, moved = false, wokeOnDown = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    let lastPinch = 0; // timestamp of last pinch, for click throttle
     const TH = 4; // px threshold to tell drag from click
 
     el.addEventListener('pointerenter', function () {
-      wake();
+      // hovering must not disturb a resting pet; only react when idle
       if (!dragging && player.state === 'idle') player.play('touch');
     });
     el.addEventListener('pointerleave', function () {
@@ -148,11 +174,12 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 
     el.addEventListener('pointerdown', function (e) {
       dragging = true; moved = false;
+      wokeOnDown = isResting();        // remember if this press is a wake-up
       sx = e.clientX; sy = e.clientY;
       const r = el.getBoundingClientRect();
       ox = r.left; oy = r.top;
       el.setPointerCapture(e.pointerId);
-      player.play('raise');
+      if (!wokeOnDown) player.play('raise'); // don't flash raise when waking
     });
     el.addEventListener('pointermove', function (e) {
       if (!dragging) return;
@@ -168,8 +195,12 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     el.addEventListener('pointerup', function () {
       if (!dragging) return;
       dragging = false;
-      if (moved) player.play('idle');       // was a drag -> rest
-      else { player.play('pinch'); say(pickLine()); } // was a click -> pinch + talk
+      if (moved) { player.play('idle'); return; }   // was a drag -> rest
+      if (wokeOnDown) { player.play('idle'); return; } // click woke it -> just idle
+      const now = Date.now();                          // throttle rapid clicks
+      if (now - lastPinch < 400) return;
+      lastPinch = now;
+      player.play('pinch'); say(pickLine());          // normal click -> pinch + talk
     });
 
     // ===== Perf guard: pause when off-screen or tab hidden =====
