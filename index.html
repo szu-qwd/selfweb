@@ -145,55 +145,51 @@
       <div class="container">
         <p class="section__eyebrow reveal">Research</p>
         <h2 class="section__title reveal">研究课题</h2>
-        <div class="rprojects">
-          <article class="rproject reveal">
-            <div class="rproject__head">
-              <span class="rproject__idx">01</span>
-              <h3 class="rproject__title">FLP-Net 轻量级水下图像增强模型</h3>
-              <span class="rproject__time">2025-03 / 2025-06</span>
+        <div class="exp">
+          <div class="exp__item reveal">
+            <div class="exp__year">2025.03 — 2025.06</div>
+            <div>
+              <h3 class="exp__role">FLP-Net 轻量级水下图像增强模型</h3>
+              <ul class="exp__list">
+                <li><b>问题导向：</b>深海水下机器人在极端弱光与强散射下，图像严重退化，下游目标检测性能下降。</li>
+                <li><b>解决方案：</b>任务定制化 Transformer 模块 + 轻量级混合域增强：傅里叶域选择性振幅校正改善全局昏暗，空间域多尺度深度可分离卷积恢复细节，并引入感知特征约束保留检测语义。</li>
+                <li><b>量化指标：</b>图像评价指标最优；YOLO 检测器 mAP 仅比原始清晰图像低 0.5%（其他方法下降 3%–5%），满足水下平台低功耗、高实时性。</li>
+              </ul>
             </div>
-            <div class="rproject__cols">
-              <div class="rcol"><span class="rcol__label">问题导向</span><p>深海水下机器人在极端弱光与强散射下，图像严重退化，下游目标检测性能下降。</p></div>
-              <div class="rcol"><span class="rcol__label">解决方案</span><p>任务定制化 Transformer 模块 + 轻量级混合域增强：傅里叶域选择性振幅校正改善全局昏暗，空间域多尺度深度可分离卷积恢复细节，并引入感知特征约束保留检测语义。</p></div>
-              <div class="rcol"><span class="rcol__label">量化指标</span><p>图像评价指标最优；YOLO 检测器 mAP 仅比原始清晰图像低 0.5%（其他方法下降 3%–5%），满足水下平台低功耗、高实时性。</p></div>
+          </div>
+          <div class="exp__item reveal">
+            <div class="exp__year">2025.06 — 2025.09</div>
+            <div>
+              <h3 class="exp__role">IEUOD：增强图像引导下游目标检测范式</h3>
+              <ul class="exp__list">
+                <li><b>问题导向：</b>以人类视觉为目标的水下图像增强会使下游检测产生伪影失真，导致 mAP 下降 3%–5%。</li>
+                <li><b>解决方案：</b>提出增强图像引导下游检测范式，维持实时性；设计浅层特征引导模块，训练中让检测器底层特征向增强图像同层特征对齐，实现细节恢复与噪声抑制，而不改变高层语义。</li>
+                <li><b>量化指标：</b>URPC 基准上 mAP 从 41.9% 提升至 43.5%；对 CNN / Transformer / ViT 等多种检测器稳定提升；计算量与参数量零增加，推理速度不变。</li>
+              </ul>
             </div>
-          </article>
-          <article class="rproject reveal">
-            <div class="rproject__head">
-              <span class="rproject__idx">02</span>
-              <h3 class="rproject__title">IEUOD：增强图像引导下游目标检测范式</h3>
-              <span class="rproject__time">2025-06 / 2025-09</span>
+          </div>
+          <div class="exp__item reveal">
+            <div class="exp__year">2025.08 — 2025.10</div>
+            <div>
+              <h3 class="exp__role">CITG：面向水下视觉任务的级联式图像增强新范式</h3>
+              <ul class="exp__list">
+                <li><b>问题导向：</b>现有水下增强严重依赖理想先验、泛化差（Model-based）；或引入伪影失真、缺少真实数据（Learning-based）。</li>
+                <li><b>解决方案：</b>提出“场景信息 + 任务引导”二阶段级联范式：阶段一多尺度融合模型初步恢复并建立物理约束，阶段二结合双对抗 GAN 对比学习与检测任务感知反馈，用检测器梯度引导恢复。</li>
+                <li><b>量化指标：</b>URPC 数据集指标领先其他方法 2.17%–24.62%；RGB 三通道比例趋近 1:1:1；边缘检测目标轮廓恢复最完整清晰，平均信息熵提升 17.49%。</li>
+              </ul>
             </div>
-            <div class="rproject__cols">
-              <div class="rcol"><span class="rcol__label">问题导向</span><p>以人类视觉为目标的水下图像增强会使下游检测产生伪影失真，导致 mAP 下降 3%–5%。</p></div>
-              <div class="rcol"><span class="rcol__label">解决方案</span><p>提出增强图像引导下游检测范式，维持实时性；设计浅层特征引导模块，训练中让检测器底层特征向增强图像同层特征对齐，实现细节恢复与噪声抑制，而不改变高层语义。</p></div>
-              <div class="rcol"><span class="rcol__label">量化指标</span><p>URPC 基准上 mAP 从 41.9% 提升至 43.5%；对 CNN / Transformer / ViT 等多种检测器稳定提升；计算量与参数量零增加，推理速度不变。</p></div>
+          </div>
+          <div class="exp__item reveal">
+            <div class="exp__year">2025.09 — 至今</div>
+            <div>
+              <h3 class="exp__role">基于 HED 引导的结构一致扩散模型</h3>
+              <ul class="exp__list">
+                <li><b>问题导向：</b>下游任务依赖数据，但水下数据集稀缺，从源头限制了下游任务性能的提升。</li>
+                <li><b>解决方案：</b>针对 image+mask 配对生成，文本在空间维度过于稀疏、难以覆盖像素级坐标相关性；利用 HED 限制解空间，实现复杂拓扑与多关节目标的语义和结构一致性。</li>
+                <li><b>最终目标：</b>设计基于 HED 引导的结构与语义一致扩散模型，生成高质量水下配对数据集（image+mask），从源头提升水下图像分割任务性能。</li>
+              </ul>
             </div>
-          </article>
-          <article class="rproject reveal">
-            <div class="rproject__head">
-              <span class="rproject__idx">03</span>
-              <h3 class="rproject__title">CITG：面向水下视觉任务的级联式图像增强新范式</h3>
-              <span class="rproject__time">2025-08 / 2025-10</span>
-            </div>
-            <div class="rproject__cols">
-              <div class="rcol"><span class="rcol__label">问题导向</span><p>现有水下增强严重依赖理想先验、泛化差（Model-based）；或引入伪影失真、缺少真实数据（Learning-based）。</p></div>
-              <div class="rcol"><span class="rcol__label">解决方案</span><p>提出“场景信息 + 任务引导”二阶段级联范式：阶段一多尺度融合模型初步恢复并建立物理约束，阶段二结合双对抗 GAN 对比学习与检测任务感知反馈，用检测器梯度引导恢复。</p></div>
-              <div class="rcol"><span class="rcol__label">量化指标</span><p>URPC 数据集指标领先其他方法 2.17%–24.62%；RGB 三通道比例趋近 1:1:1；边缘检测目标轮廓恢复最完整清晰，平均信息熵提升 17.49%。</p></div>
-            </div>
-          </article>
-          <article class="rproject reveal">
-            <div class="rproject__head">
-              <span class="rproject__idx">04</span>
-              <h3 class="rproject__title">基于 HED 引导的结构一致扩散模型</h3>
-              <span class="rproject__time">2025-09 / 至今</span>
-            </div>
-            <div class="rproject__cols">
-              <div class="rcol"><span class="rcol__label">问题导向</span><p>下游任务依赖数据，但水下数据集稀缺，从源头限制了下游任务性能的提升。</p></div>
-              <div class="rcol"><span class="rcol__label">解决方案</span><p>针对 image+mask 配对生成，文本在空间维度过于稀疏、难以覆盖像素级坐标相关性；利用 HED 限制解空间，实现复杂拓扑与多关节目标的语义和结构一致性。</p></div>
-              <div class="rcol"><span class="rcol__label">最终目标</span><p>设计基于 HED 引导的结构与语义一致扩散模型，生成高质量水下配对数据集（image+mask），从源头提升水下图像分割任务性能。</p></div>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
