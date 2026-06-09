@@ -69,13 +69,13 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     }
 
     // ===== Idle behaviours =====
-    // While idling, every 10-20s pick a behaviour with equal odds: any state in
-    // manifest.idleActs (sleep/crawl/dance/amuse/yawn) plus "speak" (bubble only).
-    // Sleep may wake on its own after ~15s.
+    // While idling, every 10-20s pick one idle action with equal odds from
+    // manifest.idleActs (sleep/crawl/dance/amuse/yawn). Sleep may self-wake ~15s.
     const IDLE_MIN = 10000, IDLE_MAX = 20000; // ms between idle behaviours
     const SLEEP_WAKE_AFTER = 15000;           // ms before sleep may self-wake
     const SLEEP_WAKE_CHANCE = 0.5;            // probability of self-waking each check
-    const LOOP_ACT_DURATION = 5000;           // looping idle actions (e.g. crawl) last ~5s
+    const LOOP_ACT_DURATION = 5000;           // looping idle actions (e.g. dance) last ~5s
+    const WALK_DURATION = 2500;               // each leg of a stroll (out, then back)
     let idleTimer = null, sleepTimer = null, actTimer = null;
 
     function scheduleIdle() {
@@ -85,9 +85,11 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     }
     function doIdleAction() {
       const acts = (manifest.idleActs || []).filter(hasState);
-      const pool = acts.concat(['__speak__']); // speak is an extra equal-odds option
+      const pool = acts.slice();
+      if (hasState('walk_left') && hasState('walk_right')) pool.push('__walk__');
+      if (!pool.length) { scheduleIdle(); return; }
       const pick = pool[Math.floor(Math.random() * pool.length)];
-      if (pick === '__speak__') { say(pickLine()); scheduleIdle(); return; } // stay idle
+      if (pick === '__walk__') { doWalk(); return; }
       player.play(pick);
       // looping actions other than sleep need a timer to return to idle
       if (pick !== 'sleep' && manifest[pick].loop) {
@@ -95,6 +97,22 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
           if (player.state === pick) player.play('idle');
         }, LOOP_ACT_DURATION);
       }
+    }
+    // Take a short stroll: play walk animation while translating the pet,
+    // then glide back to rest position and return to idle.
+    function doWalk() {
+      const dir = Math.random() < 0.5 ? -1 : 1; // -1 left, +1 right
+      const dist = 80 + Math.random() * 80;     // 80-160px
+      player.play(dir < 0 ? 'walk_left' : 'walk_right');
+      el.style.transition = 'transform ' + WALK_DURATION + 'ms linear';
+      el.style.transform = 'translateX(' + (dir * dist) + 'px)';
+      actTimer = setTimeout(function () {
+        el.style.transform = 'translateX(0)';   // glide back
+        actTimer = setTimeout(function () {
+          el.style.transition = '';
+          if (player.state === 'walk_left' || player.state === 'walk_right') player.play('idle');
+        }, WALK_DURATION);
+      }, WALK_DURATION);
     }
     function armSleepWake() {
       if (sleepTimer) clearTimeout(sleepTimer);
@@ -151,9 +169,17 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       return LINES[i];
     }
 
-    // a "resting" state can be woken by a click (sleep + any idle action)
+    // a "resting" state can be woken by a click (sleep + idle actions + strolling)
+    function isWalking() { return player.state === 'walk_left' || player.state === 'walk_right'; }
     function isResting() {
-      return player.state === 'sleep' || (manifest.idleActs || []).indexOf(player.state) >= 0;
+      return player.state === 'sleep' || isWalking() ||
+        (manifest.idleActs || []).indexOf(player.state) >= 0;
+    }
+    // cancel an in-progress stroll: drop transform without animating it back
+    function stopWalk() {
+      if (actTimer) { clearTimeout(actTimer); actTimer = null; }
+      el.style.transition = '';
+      el.style.transform = '';
     }
 
     preload('idle');
@@ -175,8 +201,9 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     el.addEventListener('pointerdown', function (e) {
       dragging = true; moved = false;
       wokeOnDown = isResting();        // remember if this press is a wake-up
+      if (isWalking()) stopWalk();     // stop a stroll, snap back to rest position
       sx = e.clientX; sy = e.clientY;
-      const r = el.getBoundingClientRect();
+      const r = el.getBoundingClientRect(); // pos after any transform cleared
       ox = r.left; oy = r.top;
       el.setPointerCapture(e.pointerId);
       if (!wokeOnDown) player.play('raise'); // don't flash raise when waking
