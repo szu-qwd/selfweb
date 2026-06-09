@@ -99,10 +99,17 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       }
     }
     // Take a short stroll: walk out in one direction, then turn around and walk
-    // back, with the facing always matching the movement direction.
+    // back, with the facing always matching the movement direction. Direction is
+    // chosen toward whichever side has more room, so the pet won't walk into an edge.
     function doWalk() {
-      const dir = Math.random() < 0.5 ? -1 : 1; // -1 left, +1 right
-      const dist = 80 + Math.random() * 80;     // 80-160px
+      const r = el.getBoundingClientRect();
+      const margin = 16;
+      const roomLeft = r.left - margin;
+      const roomRight = window.innerWidth - r.right - margin;
+      const dir = roomRight >= roomLeft ? 1 : -1; // head toward the roomier side
+      const room = Math.max(0, dir > 0 ? roomRight : roomLeft);
+      const dist = Math.min(80 + Math.random() * 80, room); // 80-160px, capped by room
+      if (dist < 20) { player.play('idle'); return; }       // no space -> skip stroll
       const faceOut = dir < 0 ? 'walk_left' : 'walk_right';
       const faceBack = dir < 0 ? 'walk_right' : 'walk_left';
       player.play(faceOut);                                  // walk out
